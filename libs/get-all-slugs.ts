@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-export function getAllSlugs(locale: string): string[] {
-  const dir = path.join(process.cwd(), 'content', locale);
+export function getAllSlugs(lang: string): string[] {
+  const dir = path.join(process.cwd(), 'content', lang);
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)

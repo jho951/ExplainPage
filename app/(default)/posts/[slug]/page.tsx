@@ -4,20 +4,16 @@ import { getMarkdownContent } from '@/libs/get-mdx-content';
 import { getAllSlugs } from '@/libs/get-all-slugs';
 import { MDXRemote } from 'next-mdx-remote';
 
-type Props = { params: { locale: string; slug: string } };
-
-// 정적 경로 생성
 export async function generateStaticParams() {
-  const locales = ['ko', 'en'];
-  return locales.flatMap(locale => {
-    const slugs = getAllSlugs(locale) ?? [];
-    return slugs.filter(Boolean).map(slug => ({ locale, slug }));
-  });
+  const langs = ['ko', 'en'];
+  return langs.flatMap(lang => getAllSlugs(lang).map(slug => ({ lang, slug })));
 }
 
+type Props = { params: { lang: string; slug: string } };
+
 export default async function PostPage({ params }: Props) {
-  const { locale, slug } = params;
-  const data = await getMarkdownContent(slug, locale);
+  const { lang, slug } = params;
+  const data = await getMarkdownContent(slug, lang);
 
   if (!data) notFound();
 
