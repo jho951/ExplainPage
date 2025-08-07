@@ -20,7 +20,7 @@
     "dev": "next dev",
     "start": "next start",
     "build": "npm run _generate:rss && next build",
-    "_generate:rss": "cross-env NODE_OPTIONS=--loader=ts-node/esm ts-node --esm libs/rss-generate.ts",
+    "_generate:rss": "cross-env NODE_OPTIONS=--loader=ts-node/esm ts-node --project tsconfig.json --require tsconfig-paths/register libs/rss-generate.ts",
     "_lint": "eslint .",
     "_typecheck": "tsc --noEmit -p tsconfig.json",
     "_format": "prettier . --write",
