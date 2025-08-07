@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import RSS from 'rss';
-import { DESCRIPTION, PROJECT_URL, TITLE } from '../constants/security';
+import { DESCRIPTION, PROJECT_URL, TITLE } from '../constants/security.ts';
 
 const feed = new RSS({
   title: TITLE,
