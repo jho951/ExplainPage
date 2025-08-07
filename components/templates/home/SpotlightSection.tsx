@@ -1,3 +1,4 @@
+import { Image } from '@/components/atoms/Image';
 import styles from './SpotlightSection.module.css';
 
 const spotlights = [
@@ -23,7 +24,7 @@ export default function SpotlightSection() {
       <div className={styles.cardSlider}>
         {spotlights.map((item, i) => (
           <div key={i} className={styles.spotlightCard}>
-            <img src={item.img} className={styles.cardImg} />
+            <Image src={item.img} className={styles.cardImg} alt={item.desc} />
             <h3>{item.title}</h3>
             <p>{item.desc}</p>
             <span className={styles.cardMeta}>{item.date}</span>

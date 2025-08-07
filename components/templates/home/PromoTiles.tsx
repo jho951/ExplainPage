@@ -1,3 +1,4 @@
+import { Image } from '@/components/atoms/Image';
 import styles from './PromoTiles.module.css';
 
 const tiles = [
@@ -27,7 +28,7 @@ export default function PromoTiles() {
       <div className={styles.cardGrid}>
         {tiles.map((tile, i) => (
           <div className={styles.card} key={i} style={{ background: tile.color }}>
-            <img src={tile.img} className={styles.cardImg} />
+            <Image src={tile.img} className={styles.cardImg} alt={tile.desc} />
             <h3>{tile.title}</h3>
             <p>{tile.desc}</p>
           </div>

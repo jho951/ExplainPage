@@ -8,10 +8,13 @@ type Props = { params: { locale: string; slug: string } };
 
 // 정적 경로 생성
 export async function generateStaticParams() {
-  // 지원하는 언어 리스트
   const locales = ['ko', 'en'];
-  // 각 언어별 모든 슬러그 조합을 paths로 만듦
-  return locales.flatMap(locale => getAllSlugs(locale).map(slug => ({ locale, slug })));
+  return locales.flatMap(locale => {
+    const slugs = getAllSlugs(locale) ?? [];
+    return slugs
+      .filter(Boolean) // undefined/null/'' 제거
+      .map(slug => ({ locale, slug }));
+  });
 }
 
 export default async function PostPage({ params }: Props) {
