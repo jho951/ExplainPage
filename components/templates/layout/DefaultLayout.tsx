@@ -1,6 +1,6 @@
 import { ClientLayoutWrapper } from '@/components/organisms/wrapper/ClientLayoutWrapper';
 
-import { getMessages, SetHtmlLang } from '@/utils/locale';
+import { getMessages } from '@/utils/locale';
 
 import { ThemeProvider } from '@/contexts/ThemeContext';
 
@@ -13,7 +13,6 @@ export default async function DefaultLayout({ children, params }: LayoutProps) {
 
   return (
     <ThemeProvider>
-      <SetHtmlLang lang={lang} />
       <TranslationsProvider messages={messages} lang={lang}>
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </TranslationsProvider>

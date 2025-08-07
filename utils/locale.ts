@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { LOOKUP } from '@/constants/locale';
 import { Locale, LocaleMessages } from '@/types/locale';
 
@@ -16,16 +14,4 @@ function getMessages(locale: Locale): { common: LocaleMessages } {
   return { common: messages };
 }
 
-function SetHtmlLang({ lang }: { lang: Locale }) {
-  useEffect(() => {
-    if (!lang) {
-      document.documentElement.lang = 'ko';
-    } else {
-      document.documentElement.lang = lang;
-    }
-  }, [lang]);
-
-  return null;
-}
-
-export { getMessages, SetHtmlLang };
+export { getMessages };
