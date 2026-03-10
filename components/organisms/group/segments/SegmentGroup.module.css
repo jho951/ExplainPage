@@ -1,8 +1,0 @@
-.segmentedGroup {
-  display: inline-flex;
-  background: var(--color-bg-elevated);
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: var(--base-shadow-xs);
-  gap: 0;
-}

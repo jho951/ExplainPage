@@ -1,11 +1,17 @@
+import Script from 'next/script';
+
 import { CAPTCHA_SITE_KEY } from '@/constants/security';
 
-export default function CaptchaScript() {
+function CaptchaScript() {
+  if (!CAPTCHA_SITE_KEY) return null;
+
   return (
-    <script
+    <Script
+      id="recaptcha-script"
       src={`https://www.google.com/recaptcha/api.js?render=${CAPTCHA_SITE_KEY}`}
-      async
-      defer
+      strategy="afterInteractive"
     />
   );
 }
+
+export default CaptchaScript;

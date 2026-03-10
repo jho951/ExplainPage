@@ -1,7 +1,5 @@
-import { FNB } from '@/data/navigation';
+import { FNB } from '@/constants/navigation.ts';
 
-interface FnbProps {
+export interface FnbProps {
   fnb: typeof FNB;
 }
-
-export type { FnbProps };

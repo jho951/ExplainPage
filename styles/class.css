@@ -4,7 +4,7 @@
   --base-padding: 5%;
   --base-border: rgba(var(--color-black-rgb), 0.05);
   --base-radius: 2.4rem;
-  --base-blur: 4px;
+  --base-blur: 14px;
   --base-font: 'Pretendard', sans-serif;
   --base-z-index: 1000;
   --base-gap: 1.6rem;
@@ -18,17 +18,6 @@
     rgba(var(--color-bg-third-gray-rgb), 0.8)
   );
   --ele-border-radius: 9999px;
-
-  --header-max-width: 100rem;
-  --header-height: 2rem;
-  --header-padding: 0.5rem 1rem 0.5rem 2rem;
-  --header-offset: 7rem;
-  --header-background: linear-gradient(
-    to bottom,
-    rgba(var(--color-white-rgb), 0.2),
-    rgba(var(--color-bg-gray-rgb), 0.3),
-    rgba(var(--color-surface-rgb), 0.4)
-  );
 }
 
 .sr-only {

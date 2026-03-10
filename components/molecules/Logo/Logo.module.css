@@ -1,0 +1,16 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+:global(html.dark) .icon {
+  filter: brightness(0) invert(1);
+}

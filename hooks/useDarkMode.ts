@@ -1,4 +1,4 @@
-import { ThemeContextProps } from '@/contexts/ThemeContext';
+import { ThemeContextProps } from '@/contexts/theme';
 import { Theme } from '@/types/theme';
 import { useEffect, useState } from 'react';
 

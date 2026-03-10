@@ -44,11 +44,13 @@ Closes #
 ## <!-- 리뷰어가 알면 좋을 만한 내용을 적어주세요 -->
 
 ## 🤖 AI Agent 협업 로그(필수)
+
 - prompts 링크: `prompts/...`
 - ADR 링크(결정이 있었다면): `docs/decisions/...`
 - REQUIREMENTS 업데이트 여부: `docs/REQUIREMENTS.md` 변경 포함/미포함 (사유)
 
 ### 체크
+
 - [ ] 이번 변경에 대한 prompts 로그를 남겼나요?
 - [ ] 큰 결정(트레이드오프/정책 변경)은 ADR로 남겼나요?
 - [ ] 요구사항/가정이 바뀌면 REQUIREMENTS도 같이 갱신했나요?

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { Locale, LocaleMessages } from '@/types/locale';
-import { TranslationsContext } from '@/contexts/TranslationContext';
+import { TranslationsContext } from '@/contexts/translate';
 
 /**
  * @function useTranslation

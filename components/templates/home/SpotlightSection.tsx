@@ -1,4 +1,4 @@
-import { Image } from '@/components/atoms/Image';
+import { Image } from '@/components/atoms/image';
 import styles from './SpotlightSection.module.css';
 
 const spotlights = [

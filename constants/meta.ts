@@ -10,6 +10,8 @@ const siteMetadata: Metadata = {
   description: DESCRIPTION,
   metadataBase: new URL(PROJECT_URL || 'http://localhost:3000'),
 
+  manifest: '/site.webmanifest',
+
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
@@ -31,7 +33,6 @@ const siteMetadata: Metadata = {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
-  manifest: '/site.webmanifest',
 
   robots: {
     index: true,

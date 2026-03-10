@@ -1,8 +1,8 @@
-import { Fnb } from '@/components/molecules/Fnb';
-import { FNB } from '@/data/navigation';
-import styles from '@/components/organisms/Footer/Footer.module.css';
-import { FooterProps } from '@/components/organisms/Footer';
-import { FooterMeta } from '@/components/molecules/FooterMeta/FooterMeta';
+import { Fnb } from '@/components/molecules/fnb';
+import { FNB } from '@/constants/navigation.ts';
+import styles from '@/components/organisms/footer/Footer.module.css';
+import { FooterProps } from '@/components/organisms/footer';
+import { FooterMeta } from '@/components/molecules/footer-meta/FooterMeta';
 
 function Footer({ pathname }: FooterProps) {
   return (

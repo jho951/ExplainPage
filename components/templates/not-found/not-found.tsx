@@ -3,8 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 
-import styles from '@/styles/features/NotFound.module.css';
-import { DIGITS } from '@/constants/media';
+import { DIGITS } from '@/constants/media.ts';
+import styles from '@/components/features/NotFound.module.css';
 
 const FIXED_COLS = 30;
 const FIXED_ROWS = 15;
@@ -114,7 +114,7 @@ export default function NotFoundPage() {
         </svg>
       </div>
       <div className={styles.message}>
-        페이지를 찾을 수 없습니다. <Link href="/">홈으로</Link>
+        페이지를 찾을 수 없습니다. <Link href="/blog/public">홈으로</Link>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@
 rss 피드 적용
 
 ## AI Agent Collaboration Artifacts
+
 - Working agreement: `AGENTS.md`
 - Requirements & assumptions: `docs/REQUIREMENTS.md`
 - Decisions (ADR): `docs/decisions/`

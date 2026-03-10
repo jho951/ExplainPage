@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
-import styles from '@/styles/features/LegalPage.module.css';
+import styles from '@/components/features/LegalPage.module.css';
 import { PageProps } from '@/types/layout';
 
 const legalContent: Record<string, string> = {
@@ -12,7 +12,6 @@ const legalContent: Record<string, string> = {
   'responsible-disclosure': 'Responsible Disclosure policy details.',
 };
 
-// ✅ SEO 메타데이터
 export async function generateMetadata({
   params,
 }: {
@@ -24,7 +23,6 @@ export async function generateMetadata({
   };
 }
 
-// ✅ 실제 페이지
 export default async function LegalPage({ params }: PageProps) {
   const slug = params.slug?.[1];
   const content = slug ? legalContent[slug] : null;

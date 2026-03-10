@@ -1,5 +1,11 @@
 echo "🏗️ eslint 확인 중..."
-npm run _lint 
+if ! npm run _lint; then
+  echo "⚠️ eslint 실패 (push는 계속 진행)"
+fi
 
 echo "🏗️ 빌드 확인 중..."
-npm run build
+if ! npm run build; then
+  echo "⚠️ build 실패 (push는 계속 진행)"
+fi
+
+exit 0

@@ -1,26 +1,49 @@
-import React from 'react';
+'use client';
 
-import { FormCard } from '@/components/molecules/card';
+import { FormEvent, useState } from 'react';
+import { Button, Form, Input } from '@jho951/ui-components';
 
-import SignInForm from '@/components/molecules/form/SignInForm';
+import { SignInTemplateProps } from '@/components/templates/auth/auth.ts';
+import styles from '@/components/templates/auth/SignIn.module.css';
 
-import { FormTitle } from '@/components/molecules/FormTitle';
-import { AuthTemplateProps } from '@/types/templates/auth';
-import { SocialBtn } from '@/components/organisms/signin/SocialBtn';
-import { LegalBtn } from '@/components/organisms/signin/LegalBtn';
+function SignInTemplate({ title, desc, dividerText = '또는' }: SignInTemplateProps) {
+  const [email, setEmail] = useState('');
 
-import styles from '@/styles/features/SignIn.module.css';
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
 
-export default function SignInTemplate({ title, desc, dividerText }: AuthTemplateProps) {
   return (
     <main className={styles.main}>
-      <FormCard>
-        <FormTitle title={title} desc={desc} icon="logo" size={70} />
-        <SignInForm />
-        <span className={styles.dividerText}>{dividerText}</span>
-        <SocialBtn />
-        <LegalBtn />
-      </FormCard>
+      <section>
+        <h1>{title}</h1>
+        <p>{desc}</p>
+
+        <Form onSubmit={handleSubmit}>
+          <Input
+            type="email"
+            label="Email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={event => setEmail(event.target.value)}
+            fullWidth
+          />
+          <Button type="submit">이메일로 계속하기</Button>
+        </Form>
+
+        <p className={styles.dividerText}>{dividerText}</p>
+
+        <div className={styles.socialButtons}>
+          <Button type="button" variant="secondary" className={styles.oauth}>
+            Google로 계속하기
+          </Button>
+          <Button type="button" variant="secondary" className={styles.oauth}>
+            Kakao로 계속하기
+          </Button>
+        </div>
+      </section>
     </main>
   );
 }
+
+export default SignInTemplate;

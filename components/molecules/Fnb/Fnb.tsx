@@ -1,7 +1,7 @@
-import { Link } from '@/components/atoms/Link';
-import { FnbProps } from '@/components/molecules/Fnb';
+import { Link } from '@/components/atoms/link';
+import { FnbProps } from '@/components/molecules/fnb';
 
-import styles from '@/components/molecules/Fnb/Fnb.module.css';
+import styles from '@/components/molecules/fnb/Fnb.module.css';
 
 function Fnb({ fnb }: FnbProps) {
   return (

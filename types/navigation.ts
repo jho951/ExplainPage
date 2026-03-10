@@ -1,4 +1,4 @@
-import { IconName } from '@/components/atoms/Icon';
+import type { IconName } from '@jho951/ui-components';
 
 /**
  * 브라우저에서 링크를 열 때 사용할 수 있는 target 속성 값입니다.

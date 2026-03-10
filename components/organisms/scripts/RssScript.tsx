@@ -1,14 +1,29 @@
-type Props = { lang: string };
+import Script from 'next/script';
 
-export default function RssScript({ lang }: Props) {
-  const href = lang === 'ko' ? '/rss.xml' : `/rss-${lang}.xml`;
+interface RssScriptProps {
+  lang: string;
+}
+
+function RssScript({ lang }: RssScriptProps) {
+  const href = lang === 'ko' ? '/rss.xml' : `/${lang}/rss.xml`;
 
   return (
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={`개발 블로그 RSS (${lang})`}
-      href={href}
-    />
+    <Script id="rss-link-script" strategy="afterInteractive">
+      {`
+        (function () {
+          const existing = document.querySelector('link[data-rss-link="true"]');
+          if (existing) return;
+          const link = document.createElement('link');
+          link.setAttribute('rel', 'alternate');
+          link.setAttribute('type', 'application/rss+xml');
+          link.setAttribute('title', 'RSS Feed');
+          link.setAttribute('href', '${href}');
+          link.setAttribute('data-rss-link', 'true');
+          document.head.appendChild(link);
+        })();
+      `}
+    </Script>
   );
 }
+
+export default RssScript;

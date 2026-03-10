@@ -58,7 +58,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "libs/**/*",
-    "assets/icons/svg.d.ts",
     ".vscode/not-found.tsx",
     "components/*"
   ],
