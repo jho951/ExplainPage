@@ -11,3 +11,11 @@ rss 피드 적용
 - Decisions (ADR): `docs/decisions/`
 - Prompt logs: `prompts/`
 - Runbook: `docs/runbook/DEBUG.md`
+
+## Auth Setup
+
+- GitHub social login uses `next-auth`.
+- Required server env vars:
+  - `GITHUB_CLIENT_ID`
+  - `GITHUB_CLIENT_SECRET`
+  - `NEXTAUTH_SECRET`

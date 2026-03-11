@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+
+import { NEXTAUTH_SECRET_KEY } from '@/constants/security';
 import { LOCALE_COOKIE, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/constants/locale';
 import type { Locale } from '@/types/locale';
 
@@ -6,12 +9,30 @@ function isLocale(x: string): x is Locale {
   return SUPPORTED_LOCALES.includes(x as Locale);
 }
 
-function isAuthenticated(req: NextRequest): boolean {
-  const token = req.cookies.get('auth_token')?.value;
+async function isAuthenticated(req: NextRequest): Promise<boolean> {
+  if (!NEXTAUTH_SECRET_KEY) {
+    return false;
+  }
+
+  const token = await getToken({
+    req,
+    secret: NEXTAUTH_SECRET_KEY,
+  });
+
   return Boolean(token);
 }
 
-export function middleware(req: NextRequest) {
+function isProtectedPath(pathname: string): boolean {
+  if (pathname === '/app' || pathname.startsWith('/app/')) {
+    return true;
+  }
+
+  return SUPPORTED_LOCALES.some(
+    locale => pathname === `/${locale}/app` || pathname.startsWith(`/${locale}/app/`),
+  );
+}
+
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const segments = pathname.split('/').filter(Boolean);
   const firstSegment = segments[0];
@@ -25,7 +46,7 @@ export function middleware(req: NextRequest) {
   }
 
   // ✅ 로그인 보호: /app 하위는 인증 필요
-  if (pathname.startsWith('/app') && !isAuthenticated(req)) {
+  if (isProtectedPath(pathname) && !(await isAuthenticated(req))) {
     const loginUrl = req.nextUrl.clone();
     loginUrl.pathname = '/signin';
     return NextResponse.redirect(loginUrl);

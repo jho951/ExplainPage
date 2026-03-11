@@ -7,11 +7,24 @@ import { Button } from '@jho951/ui-components';
 import { SignInTemplateProps } from '@/components/templates/auth/auth.ts';
 import styles from '@/components/templates/auth/SignIn.module.css';
 
-function SignInTemplate({ title, desc, dividerText = '또는' }: SignInTemplateProps) {
+function SignInTemplate({
+  title,
+  desc,
+  dividerText = '또는',
+  authConfigured = true,
+}: SignInTemplateProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const isDisabled = isSubmitting || authConfigured === false;
 
   const handleGitHubLogin = async () => {
+    if (authConfigured === false) {
+      setErrorMessage(
+        'GitHub OAuth 환경변수가 설정되지 않았습니다. GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, NEXTAUTH_SECRET를 확인해 주세요.',
+      );
+      return;
+    }
+
     setIsSubmitting(true);
     setErrorMessage('');
 
@@ -40,9 +53,9 @@ function SignInTemplate({ title, desc, dividerText = '또는' }: SignInTemplateP
                 variant="primary"
                 className={styles.githubButton}
                 onClick={handleGitHubLogin}
-                disabled={isSubmitting}
+                disabled={isDisabled}
               >
-                {isSubmitting ? 'GitHub로 이동 중...' : 'Continue with GitHub'}
+                {isSubmitting ? 'GitHub로 이동 중...' : 'GitHub로 계속하기'}
               </Button>
             </div>
 
@@ -57,6 +70,13 @@ function SignInTemplate({ title, desc, dividerText = '또는' }: SignInTemplateP
                 흐름으로 연결하기 위한 선택입니다.
               </p>
             </div>
+
+            {authConfigured === false ? (
+              <p className={styles.setupMessage}>
+                로그인 버튼을 쓰려면 서버 환경변수에 `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`,
+                `NEXTAUTH_SECRET`가 필요합니다.
+              </p>
+            ) : null}
 
             {errorMessage ? <p className={styles.errorMessage}>{errorMessage}</p> : null}
 

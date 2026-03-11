@@ -11,6 +11,8 @@
 - 접근 가능한 UI와 반응형 레이아웃을 유지한다.
 - 콘텐츠 렌더링(마크다운/블로그 관련 기능)을 깨지 않도록 한다.
 - 에디터(`/edit`, `/[lang]/edit`) 기능은 제공하지 않는다.
+- 인증이 필요한 경로는 NextAuth 기반 세션으로 보호한다.
+- 사용자 로그인은 GitHub OAuth 단일 소셜 로그인 흐름을 제공한다.
 
 ## Non-Functional Requirements
 
@@ -23,6 +25,7 @@
 
 - 이 저장소는 프론트엔드 애플리케이션(Next.js)이다.
 - CI/배포 파이프라인은 기존 구성을 그대로 사용한다.
+- GitHub OAuth용 서버 환경변수(`GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `NEXTAUTH_SECRET`)가 배포 환경에 설정된다.
 
 ## Change Control
 
