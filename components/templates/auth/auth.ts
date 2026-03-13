@@ -11,6 +11,7 @@ interface SignInTemplateProps {
   desc: string;
   dividerText?: string;
   authConfigured?: boolean;
+  nextPath?: string;
 }
 
 export type { AuthTemplateProps, SignInTemplateProps };

@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
+import { AuthBootstrap, AuthGate } from '@/components/auth';
 import { Header } from '@/components/organisms/Header';
 import { Footer } from '@/components/organisms/Footer';
 import { FOOTER_EXCLUDED_PATHS, HEADER_EXCLUDED_PATHS } from '@/constants/navigation.ts';
@@ -41,13 +42,14 @@ function ClientProvider({ children, modal }: ClientLayoutProviderProps) {
 
   return (
     <>
+      <AuthBootstrap />
       {!hideHeader && <Header pathname={pathname} />}
       <div
         className={clsx(styles.content, {
           [styles.withHeaderOffset]: !hideHeader,
         })}
       >
-        {children}
+        <AuthGate>{children}</AuthGate>
       </div>
       {modal}
       {!hideFooter && <Footer pathname={pathname} />}

@@ -1,0 +1,5 @@
+- Request: 서버 체크 후 최종 프론트 리다이렉트가 `http://localhost:5173/` 이어야 하므로 callback origin을 5173으로 복구
+- Summary:
+  - Updated `.env.local` `NEXT_PUBLIC_SITE` to `http://localhost:5173`
+  - Updated `.env.example` `NEXT_PUBLIC_SITE` to `http://localhost:5173`
+  - This frontend now generates `http://localhost:5173/auth/callback?next=...` as the SSO `redirect_uri`

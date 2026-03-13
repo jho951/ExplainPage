@@ -1,0 +1,6 @@
+- Request: `5173` 소비 프론트가 내부 `/signin` 대신 외부 `3000/signin` 시작 프론트를 사용하도록 SSO 흐름을 정렬
+- Summary:
+  - Added `NEXT_PUBLIC_START_FRONTEND_URL` support
+  - Redirected protected-route login flow and header login actions to the external start frontend
+  - Updated local `/signin` to forward to the external start frontend when configured
+  - Updated `docs/REQUIREMENTS.md` to record the consumer-frontend login-start delegation rule

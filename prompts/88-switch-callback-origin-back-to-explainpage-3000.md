@@ -1,0 +1,4 @@
+- Request: ExplainPage가 3000 포트이므로 그에 맞게 수정
+- Summary:
+  - Updated local frontend site origin back to `http://localhost:3000`
+  - Synced `.env.local` and `.env.example` so SSO callback generation uses ExplainPage on port 3000

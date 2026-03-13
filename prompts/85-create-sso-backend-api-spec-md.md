@@ -1,0 +1,5 @@
+- Request: API 명세서 형태를 md 로 만들어줘
+- Summary:
+  - Added server-facing SSO API spec markdown for ExplainPage Spring Boot auth server
+  - Documented `/auth/sso/start`, GitHub callback handling, `/auth/exchange`, `/auth/me`, `/auth/logout`
+  - Included cookie, CORS, redirect allowlist, local `http://localhost:5173/auth/callback`, and security requirements

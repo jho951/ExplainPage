@@ -1,0 +1,4 @@
+- Request: `redirect_uri`가 `http://localhost:5173/auth/callback?...`가 되도록 다시 변경
+- Summary:
+  - Updated local frontend site origin to `http://localhost:5173`
+  - Synced `.env.local` and `.env.example` so SSO callback generation targets the 5173 frontend callback URL

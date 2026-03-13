@@ -3,21 +3,20 @@ import GitHubProvider from 'next-auth/providers/github';
 
 import { GITHUB_CLIENT_KEY, GITHUB_SECRET_KEY, NEXTAUTH_SECRET_KEY } from '@/constants/security';
 
-const createAuthOptions = (): NextAuthOptions => {
-  if (!GITHUB_CLIENT_KEY || !GITHUB_SECRET_KEY) {
-    throw new Error('GITHUB_CLIENT_ID 또는 GITHUB_CLIENT_SECRET 환경변수가 누락되었습니다.');
-  }
+const isGitHubAuthConfigured = () =>
+  Boolean(GITHUB_CLIENT_KEY && GITHUB_SECRET_KEY && NEXTAUTH_SECRET_KEY);
 
-  if (!NEXTAUTH_SECRET_KEY) {
-    throw new Error('NEXTAUTH_SECRET 환경변수가 누락되었습니다.');
+const createAuthOptions = (): NextAuthOptions => {
+  if (!isGitHubAuthConfigured()) {
+    throw new Error('GitHub OAuth 환경변수가 누락되었습니다.');
   }
 
   return {
     secret: NEXTAUTH_SECRET_KEY,
     providers: [
       GitHubProvider({
-        clientId: GITHUB_CLIENT_KEY,
-        clientSecret: GITHUB_SECRET_KEY,
+        clientId: GITHUB_CLIENT_KEY!,
+        clientSecret: GITHUB_SECRET_KEY!,
       }),
     ],
     pages: {
@@ -42,4 +41,4 @@ const createAuthOptions = (): NextAuthOptions => {
   };
 };
 
-export { createAuthOptions };
+export { createAuthOptions, isGitHubAuthConfigured };

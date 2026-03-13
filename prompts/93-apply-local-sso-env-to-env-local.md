@@ -1,0 +1,5 @@
+- Request: 이 프로젝트의 실제 `.env.local` 에 로컬 SSO 멀티 프론트 구조 기준 값을 적용
+- Summary:
+  - Kept frontend SSO base URL as `http://localhost:8080`
+  - Kept frontend site origin as `http://localhost:5173`
+  - Organized `.env.local` so the active SSO values are explicit for this project

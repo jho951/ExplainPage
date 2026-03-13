@@ -1,0 +1,5 @@
+- Request: `5173/auth/callback` 실패 시 `http://localhost:3000/signin?next=...` 로 복귀하는 재로그인 흐름 추가
+- Summary:
+  - Added callback failure recovery for missing ticket, callback error, `/auth/exchange` failure, and `/auth/me` failure
+  - Added `NEXT_PUBLIC_START_FRONTEND_URL="http://localhost:3000"` to local env templates
+  - Updated requirements to record restart-on-callback-failure behavior

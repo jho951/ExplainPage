@@ -9,6 +9,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { Button, Icon, type MenuItem } from '@jho951/ui-components';
 
+import { AUTH_DEFAULT_NEXT_PATH } from '@/constants/auth';
 import { GNB } from '@/constants/navigation.ts';
 import { TITLE } from '@/constants/security';
 import { HeaderProps } from '@/components/organisms/Header/Header.types.ts';
@@ -16,19 +17,27 @@ import { HeaderAuthActions, HeaderDesktopNav, HeaderMobileMenu } from '@/compone
 import { Logo } from '@/components/molecules/Logo';
 import { ICON_BASE_PATH } from '@/constants/icon.ts';
 import { useIsMobile } from '@/hooks/useDevice';
+import { buildStartFrontendSignInUrl } from '@/libs/auth-routing';
+import { logoutAuthSession } from '@/libs/auth-client';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { clearAuthState } from '@/store/slices/auth-slice';
 
 import styles from '@/components/organisms/Header/Header.module.css';
 
 function Header({ pathname }: HeaderProps) {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const isMobile = useIsMobile();
   const headerRef = useRef<HTMLElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const authStatus = useAppSelector(state => state.auth.status);
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
   const [desktopOpenIndex, setDesktopOpenIndex] = useState<number | null>(null);
   const [expandedHeight, setExpandedHeight] = useState<number | null>(null);
+  const isAuthenticated = authStatus === 'authenticated';
+  const isAuthBusy = authStatus === 'loading';
 
   const closeAll = () => {
     setIsExpanded(false);
@@ -50,6 +59,16 @@ function Header({ pathname }: HeaderProps) {
     }
 
     closeAll();
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutAuthSession();
+    } finally {
+      dispatch(clearAuthState());
+      closeAll();
+      router.replace('/');
+    }
   };
 
   const getMenuItems = (idx: number): MenuItem[] =>
@@ -119,8 +138,17 @@ function Header({ pathname }: HeaderProps) {
         <nav className={styles.gnbBtn} aria-label="Header actions">
           {!isMobile && (
             <HeaderAuthActions
-              onLogin={() => navigate('/signin')}
-              onStart={() => navigate('/signup')}
+              isAuthenticated={isAuthenticated}
+              isBusy={isAuthBusy}
+              onLogin={() => navigate(buildStartFrontendSignInUrl())}
+              onStart={() =>
+                navigate(
+                  isAuthenticated
+                    ? AUTH_DEFAULT_NEXT_PATH
+                    : buildStartFrontendSignInUrl(AUTH_DEFAULT_NEXT_PATH),
+                )
+              }
+              onLogout={handleLogout}
             />
           )}
           {isMobile && (
@@ -149,6 +177,9 @@ function Header({ pathname }: HeaderProps) {
           isExpanded={isExpanded}
           openCategoryId={openCategoryId}
           onNavigate={navigate}
+          isAuthenticated={isAuthenticated}
+          isAuthBusy={isAuthBusy}
+          onLogout={handleLogout}
           onToggleCategory={categoryId =>
             setOpenCategoryId(prev => (prev === categoryId ? null : categoryId))
           }

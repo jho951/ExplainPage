@@ -1,0 +1,5 @@
+- Request: `redirect_uri`가 `http://localhost:5173/auth/callback?next=...` 형태로 가도록 수정
+- Summary:
+  - Updated SSO start URL generation to use `NEXT_PUBLIC_SITE` as the callback origin
+  - Removed dependence on the current browser origin for callback URL creation
+  - Ensured local login flow targets `http://localhost:8080/auth/sso/start?redirect_uri=http://localhost:5173/auth/callback?...`

@@ -1,0 +1,5 @@
+- Request: 로컬에서 `3000` 시작 프론트, `8080` SSO 서버, `5173` 소비 프론트 구조를 다른 프로젝트에서도 그대로 적용할 수 있게 문서화
+- Summary:
+  - Added `docs/SSO_LOCAL_MULTI_FRONTEND_GUIDE.md`
+  - Documented fixed role split for `3000`, `8080`, and `5173`
+  - Documented required URLs, redirect flow, env contract, and debug checklist

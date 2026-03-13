@@ -1,0 +1,5 @@
+- Request: GitHub 로그인 후 다시 `/signin` 으로 돌아가는 상황을 추적하기 쉽게 callback 단계 진단 정보를 추가
+- Summary:
+  - Added `SsoRequestError` with HTTP status in `libs/auth-client.ts`
+  - Updated `/auth/callback` to surface callback error, `/auth/exchange`, and `/auth/me` failure stage
+  - Improved callback progress messages so session exchange vs session lookup can be distinguished

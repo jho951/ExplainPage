@@ -192,11 +192,11 @@ const FNB: NavigationTreeLink[] = [PROGRAMMING, COMMUNITY, LEGAL, DOWNLOAD, COMP
 /**
  * 해당 페이지에서는 헤더가 렌더되지 않습니다.
  */
-const HEADER_EXCLUDED_PATHS = ['/signin', '/signup'];
+const HEADER_EXCLUDED_PATHS = ['/signin', '/signup', '/auth/callback'];
 /**
  * 해당 페이지에서는 푸터가 렌더되지 않습니다.
  */
-const FOOTER_EXCLUDED_PATHS = ['/signin', '/signup'];
+const FOOTER_EXCLUDED_PATHS = ['/signin', '/signup', '/auth/callback'];
 
 export {
   HEADER_EXCLUDED_PATHS,

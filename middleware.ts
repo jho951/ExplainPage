@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
 
-import { NEXTAUTH_SECRET_KEY } from '@/constants/security';
 import { LOCALE_COOKIE, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/constants/locale';
+import { SSO_BASE_URL } from '@/constants/security';
+import { buildStartFrontendSignInUrl } from '@/libs/auth-routing';
 import type { Locale } from '@/types/locale';
 
 function isLocale(x: string): x is Locale {
@@ -10,16 +10,23 @@ function isLocale(x: string): x is Locale {
 }
 
 async function isAuthenticated(req: NextRequest): Promise<boolean> {
-  if (!NEXTAUTH_SECRET_KEY) {
+  if (!SSO_BASE_URL) {
     return false;
   }
 
-  const token = await getToken({
-    req,
-    secret: NEXTAUTH_SECRET_KEY,
-  });
+  try {
+    const response = await fetch(new URL('/auth/me', SSO_BASE_URL), {
+      method: 'GET',
+      headers: {
+        cookie: req.headers.get('cookie') ?? '',
+      },
+      cache: 'no-store',
+    });
 
-  return Boolean(token);
+    return response.ok;
+  } catch {
+    return false;
+  }
 }
 
 function isProtectedPath(pathname: string): boolean {
@@ -47,9 +54,7 @@ export async function middleware(req: NextRequest) {
 
   // ✅ 로그인 보호: /app 하위는 인증 필요
   if (isProtectedPath(pathname) && !(await isAuthenticated(req))) {
-    const loginUrl = req.nextUrl.clone();
-    loginUrl.pathname = '/signin';
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(buildStartFrontendSignInUrl(`${pathname}${req.nextUrl.search}`));
   }
 
   // ✅ locale 경로 리디렉션

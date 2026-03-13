@@ -1,0 +1,8 @@
+- Request: `ExplainPage/SSO 시작 -> callback ticket -> exchange -> /auth/me` 흐름 대로 되게 해줘
+- Summary:
+  - Rewired sign-in to start authentication via external SSO instead of `next-auth`
+  - Implemented `/auth/callback` ticket exchange and `/auth/me` verification flow
+  - Switched auth bootstrap, logout, and middleware protection to SSO session semantics
+  - Updated `.env.example`, `docs/REQUIREMENTS.md`, and superseded ADR-004 to match the SSO flow
+  - Clarified that GitHub callback is handled by ExplainPage SSO and that protected-route final judgment is always `/auth/me`
+  - Changed callback URL generation to use the current app origin so editor-service local runs return to `http://localhost:5173/auth/callback`

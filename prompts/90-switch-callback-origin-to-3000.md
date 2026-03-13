@@ -1,0 +1,5 @@
+- Request: `localhost:3000/signin`에서 시작하는 로컬 로그인 흐름에 맞게 프론트 callback origin을 3000으로 수정
+- Summary:
+  - Updated `.env.local` `NEXT_PUBLIC_SITE` to `http://localhost:3000`
+  - Updated `.env.example` `NEXT_PUBLIC_SITE` to `http://localhost:3000`
+  - Kept GitHub OAuth provider callback on the SSO server endpoint `http://localhost:8080/auth/github/callback`

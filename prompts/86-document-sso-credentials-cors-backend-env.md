@@ -1,0 +1,6 @@
+- Request: 인증 요청의 `credentials: "include"`, CORS origin 일치, 백엔드 env, GitHub OAuth callback 서버 설정을 문서에 반영
+- Summary:
+  - Updated SSO backend API spec with explicit `credentials: "include"` requirement
+  - Added backend env requirements `SSO_FRONTEND_ORIGIN`, `SSO_FRONTEND_CALLBACK_URI`
+  - Documented that GitHub OAuth app callback URL must point to the SSO server callback endpoint
+  - Synced frontend implementation doc and README with the same constraints

@@ -1,0 +1,5 @@
+- Request: 이 저장소가 실제 `http://localhost:3000` 에서 동작하는 ExplainPage 프론트이므로 로컬 SSO 흐름을 3000 기준으로 다시 정렬
+- Summary:
+  - Updated `.env.local` and `.env.example` so `NEXT_PUBLIC_SITE` points to `http://localhost:3000`
+  - Removed the local `NEXT_PUBLIC_START_FRONTEND_URL` override from env because this frontend starts login itself
+  - Updated `docs/REQUIREMENTS.md` to reflect `3000/signin -> 8080/auth/github/callback -> 3000/auth/callback`

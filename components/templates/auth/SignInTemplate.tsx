@@ -1,10 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@jho951/ui-components';
 
+import { AUTH_DEFAULT_NEXT_PATH } from '@/constants/auth';
 import { SignInTemplateProps } from '@/components/templates/auth/auth.ts';
+import { getSsoStartUrl } from '@/libs/auth-client';
+import { useAppSelector } from '@/store/hooks';
 import styles from '@/components/templates/auth/SignIn.module.css';
 
 function SignInTemplate({
@@ -12,15 +15,24 @@ function SignInTemplate({
   desc,
   dividerText = '또는',
   authConfigured = true,
+  nextPath = AUTH_DEFAULT_NEXT_PATH,
 }: SignInTemplateProps) {
+  const router = useRouter();
+  const { initialized, status } = useAppSelector(state => state.auth);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const isDisabled = isSubmitting || authConfigured === false;
+  const isDisabled = isSubmitting;
 
-  const handleGitHubLogin = async () => {
+  useEffect(() => {
+    if (initialized && status === 'authenticated') {
+      router.replace(nextPath);
+    }
+  }, [initialized, nextPath, router, status]);
+
+  const handleSsoLogin = async () => {
     if (authConfigured === false) {
       setErrorMessage(
-        'GitHub OAuth 환경변수가 설정되지 않았습니다. GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, NEXTAUTH_SECRET를 확인해 주세요.',
+        'SSO 로그인 환경변수가 설정되지 않았습니다. `NEXT_PUBLIC_SSO_BASE_URL` 설정을 확인해 주세요.',
       );
       return;
     }
@@ -29,10 +41,10 @@ function SignInTemplate({
     setErrorMessage('');
 
     try {
-      await signIn('github', { callbackUrl: '/' });
+      window.location.assign(getSsoStartUrl(nextPath));
     } catch {
       setIsSubmitting(false);
-      setErrorMessage('GitHub 로그인 연결에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      setErrorMessage('SSO 로그인 연결에 실패했습니다. 잠시 후 다시 시도해 주세요.');
     }
   };
 
@@ -52,10 +64,10 @@ function SignInTemplate({
                 type="button"
                 variant="primary"
                 className={styles.githubButton}
-                onClick={handleGitHubLogin}
+                onClick={handleSsoLogin}
                 disabled={isDisabled}
               >
-                {isSubmitting ? 'GitHub로 이동 중...' : 'GitHub로 계속하기'}
+                {isSubmitting ? 'SSO로 이동 중...' : 'ExplainPage SSO로 계속하기'}
               </Button>
             </div>
 
@@ -64,17 +76,16 @@ function SignInTemplate({
             </div>
 
             <div className={styles.metaBlock}>
-              <p className={styles.metaTitle}>GitHub 계정으로만 로그인합니다</p>
+              <p className={styles.metaTitle}>ExplainPage SSO 세션으로 로그인합니다</p>
               <p className={styles.metaText}>
-                현재 인증은 GitHub OAuth 하나만 사용합니다. 협업 이력과 코드 저장소 맥락을 한
-                흐름으로 연결하기 위한 선택입니다.
+                GitHub callback 처리는 ExplainPage SSO 서버가 담당하고, 이 프론트는 callback
+                ticket을 세션으로 교환한 뒤 `/auth/me`로 최종 로그인 상태만 확인합니다.
               </p>
             </div>
 
             {authConfigured === false ? (
               <p className={styles.setupMessage}>
-                로그인 버튼을 쓰려면 서버 환경변수에 `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`,
-                `NEXTAUTH_SECRET`가 필요합니다.
+                로그인 버튼을 쓰려면 서버 환경변수에 `NEXT_PUBLIC_SSO_BASE_URL`이 필요합니다.
               </p>
             ) : null}
 

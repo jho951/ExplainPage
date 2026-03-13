@@ -3,8 +3,11 @@ import type { RefObject } from 'react';
 
 interface HeaderAuthActionsProps {
   mobile?: boolean;
+  isAuthenticated?: boolean;
+  isBusy?: boolean;
   onLogin: () => void;
   onStart: () => void;
+  onLogout: () => void;
 }
 
 interface HeaderMobileMenuProps {
@@ -13,6 +16,9 @@ interface HeaderMobileMenuProps {
   openCategoryId: string | null;
   onToggleCategory: (categoryId: string) => void;
   onNavigate: (href: string, target?: string) => void;
+  isAuthenticated: boolean;
+  isAuthBusy: boolean;
+  onLogout: () => void;
 }
 
 interface HeaderDesktopNavProps {

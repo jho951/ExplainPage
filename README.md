@@ -14,8 +14,9 @@ rss 피드 적용
 
 ## Auth Setup
 
-- GitHub social login uses `next-auth`.
+- GitHub callback is handled by ExplainPage SSO.
+- This frontend uses `ticket -> /auth/exchange -> /auth/me`.
+- All auth requests use `credentials: "include"`.
 - Required server env vars:
-  - `GITHUB_CLIENT_ID`
-  - `GITHUB_CLIENT_SECRET`
-  - `NEXTAUTH_SECRET`
+  - `NEXT_PUBLIC_SSO_BASE_URL`
+  - `SSO_SESSION_COOKIE_NAME`

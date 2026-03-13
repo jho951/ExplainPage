@@ -1,0 +1,5 @@
+- Request: 이 저장소는 `3000` 시작 프론트로 동작하되 SSO 서버의 최종 callback 은 `5173/auth/callback` 으로 보내도록 분리
+- Summary:
+  - Added `NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL` for the consumer frontend callback target
+  - Kept `NEXT_PUBLIC_SITE` as `http://localhost:3000` for the start frontend itself
+  - Updated callback URL generation so `/auth/sso/start` uses `http://localhost:5173/auth/callback?next=...`

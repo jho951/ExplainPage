@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import NextAuth from 'next-auth';
+
 import { createAuthOptions } from '@/libs/auth';
 import { checkRateLimit } from '@/libs/rate-limit';
 
@@ -18,9 +19,8 @@ const getClientIp = (request: NextRequest) => {
   return request.headers.get('x-real-ip') || 'unknown';
 };
 
-const shouldLimitAuthRequest = (pathname: string) => {
-  return pathname.startsWith('/api/auth/signin') || pathname.startsWith('/api/auth/callback');
-};
+const shouldLimitAuthRequest = (pathname: string) =>
+  pathname.startsWith('/api/auth/signin') || pathname.startsWith('/api/auth/callback');
 
 const runRateLimit = (request: NextRequest) => {
   if (!shouldLimitAuthRequest(request.nextUrl.pathname)) {

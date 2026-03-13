@@ -1,6 +1,8 @@
 import { Button } from '@jho951/ui-components';
 
 import { GNB } from '@/constants/navigation.ts';
+import { AUTH_DEFAULT_NEXT_PATH } from '@/constants/auth';
+import { buildStartFrontendSignInUrl } from '@/libs/auth-routing';
 
 import { HeaderAuthActions } from './HeaderAuthActions.tsx';
 import { HeaderMobileMenuProps } from '@/components/molecules/gnb/gnb.types.ts';
@@ -13,6 +15,9 @@ function HeaderMobileMenu({
   openCategoryId,
   onToggleCategory,
   onNavigate,
+  isAuthenticated,
+  isAuthBusy,
+  onLogout,
 }: HeaderMobileMenuProps) {
   return (
     <div
@@ -72,8 +77,17 @@ function HeaderMobileMenu({
       <div className={styles.menuFooter}>
         <HeaderAuthActions
           mobile
-          onLogin={() => onNavigate('/signin')}
-          onStart={() => onNavigate('/signup')}
+          isAuthenticated={isAuthenticated}
+          isBusy={isAuthBusy}
+          onLogin={() => onNavigate(buildStartFrontendSignInUrl())}
+          onStart={() =>
+            onNavigate(
+              isAuthenticated
+                ? AUTH_DEFAULT_NEXT_PATH
+                : buildStartFrontendSignInUrl(AUTH_DEFAULT_NEXT_PATH),
+            )
+          }
+          onLogout={onLogout}
         />
       </div>
     </div>
